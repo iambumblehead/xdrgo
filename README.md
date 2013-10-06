@@ -8,6 +8,18 @@ _CORS is not supported by IE < 8._
 
 __xdrgo is beta and is not for production use__
 
+https://stripe.com/blog/stripejs-and-jsonp 
+no need for iframes as well as jsonp
+
+
+http://blogs.msdn.com/b/ieinternals/archive/2010/05/13/xdomainrequest-restrictions-limitations-and-workarounds.aspx
+xdr limitations:
+ - only GET and POST may be used
+ - no header customisation
+ - *only* text/plain is supported as a Content-Type
+ - no authentication or cookies may be sent with request
+
+
 Simple/dumb `xhr` (`xdr` for IE) object for performing cross-domain requests, using [CORS][5] when available or [xdr][8] as a fallback.
 
 Another way to make cross-domain requests is [JSONP][6]. JSONP exploits unintended browser functionality. You may want to use JSONP rather than CORS if you need to support older browsers (lt IE8).

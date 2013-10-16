@@ -1,6 +1,7 @@
 {
   "name": "xdrgo",
   "version": "0.0.01",
+  "license" : "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/iambumblehead/xdrgo.git"

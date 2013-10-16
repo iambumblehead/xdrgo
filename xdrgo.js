@@ -1,5 +1,5 @@
 // Filename: xdrgo.js  
-// Timestamp: 2013.10.06-06:13:50 (last modified)  
+// Timestamp: 2013.10.16-09:14:33 (last modified)  
 // Author(s): Bumblehead (www.bumblehead.com)  
 // Requires: xhrgo.js
 
@@ -49,7 +49,6 @@ var xdrgo = ((typeof module === 'object') ? module : {}).exports = (function (xd
       var err, res = 'success';
 
       clearTimeout(timer);
-      if (xhr.status === 500) return doneFn('Internal Server Error');
 
       if (xhr.responseText) {
         try {
@@ -65,8 +64,7 @@ var xdrgo = ((typeof module === 'object') ? module : {}).exports = (function (xd
         doneFn(xhr, res);
       }
 
-      err = (xhr.status === 200) ? null : xhr;
-      doneFn(null, res);
+      doneFn((xhr.status === 200 ? null : xhr), res);
     });
 
     xhr.send(finData);
@@ -77,29 +75,3 @@ var xdrgo = ((typeof module === 'object') ? module : {}).exports = (function (xd
 
 }());
 
-
-/*
-// 1. Create XDR object: 
-var xdr = new XDomainRequest(); 
-
-// 2. Open connection with server using GET method:
-xdr.open("get", "http://www.contoso.com/xdr.aspx");
-
-// 3. Send string data to server:
-xdr.send();
-
-
-      if (window.XDomainRequest)
-      {
-        xdr = new XDomainRequest();
-        if (xdr)
-        {
-          xdr.onerror = err;
-          xdr.ontimeout = timeo;
-          xdr.onprogress = progres;
-          xdr.onload = loadd;
-          xdr.timeout = tbTO.value;
-          xdr.open("get", tbURL.value);
-          xdr.send();
-        }
-*/

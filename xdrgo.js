@@ -9,7 +9,7 @@
 
 var xhrgo = require('xhrgo');
 
-var xdrgo = ((typeof module === 'object') ? module : {}).exports = (function (xdrgo) {
+var xdrgo = module.exports = (function (xdrgo) {
   
   xdrgo = Object.create(xhrgo);
 

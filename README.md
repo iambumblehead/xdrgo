@@ -1,8 +1,6 @@
 xdrgo
 =====
-**(c)[Bumblehead][0], 2013** [MIT-license](#license)  
-
-### OVERVIEW:
+**(c)[Bumblehead][0], 2013** [MIT-license](#license)
 
 _CORS is not supported by IE < 8._
 
@@ -37,54 +35,6 @@ xdrgo uses the node.js callback convention.
 [0]: http://www.bumblehead.com                            "bumblehead"
 [3]: https://npmjs.org/package/form-urlencoded    "www-urlformencoded"
 [8]: http://msdn.microsoft.com/en-us/library/ie/cc288060%28v=vs.85%29.aspx "xdr"
-
-------------------------------------------------------------------------------
-#### <a id="install"></a>INSTALL:
-
-xdrgo may be downloaded directly or installed through `npm`.
-
- * **npm**   
-
- ```bash
- $ npm install xdrgo
- ```
-
- * **Direct Download**
- 
- ```bash  
- $ git clone https://github.com/iambumblehead/xdrgo.git
- $ cd xdrgo && npm install
- ```
-
-
-------------------------------------------------------------------------------
-#### <a id="test"></a>TEST:
-
- to run tests, use `npm test` from a shell.
-
- ```bash
- $ npm test
- ```
- 
----------------------------------------------------------
-#### <a id="usage">USAGE:
-
- There are [several methods](#methods) defined on `xdrgo`. One method would return 
- compare two objects to see if they have definition for the same members
-
----------------------------------------------------------
-#### <a id="methods">METHODS:
-
-The same parameters are used for each method:
-
- - **_type_**, REST type such as 'PUT', 'POST', 'DELETE', 'GET'.
- - **_url_**
- - **_data_**, object to be stringified and sent with PUT and POST requests.
- - **_token_** authorization token.
- - **_fn_** callback function used in the node.js convention -error is passed as the first parameter.
- - **_time_** number value in milliseconds -it is used with `setTimeout` to cancel a request that has not received a response during that timespan.
-
-
 
  - **xdrgo.JSON( _type_, _url_, _data_, _token_, _fn_, _time_ )**
  

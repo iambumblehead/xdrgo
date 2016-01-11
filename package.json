@@ -1,7 +1,7 @@
 {
   "name": "xdrgo",
-  "version": "0.0.02",
-  "main" : "xdrgo.js",
+  "version": "0.0.03",
+  "main" : "xdrgo",
   "license" : "MIT",
   "repository": {
     "type": "git",

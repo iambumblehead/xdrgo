@@ -1,9 +1,8 @@
 // Filename: xdrgo.js  
-// Timestamp: 2013.10.16-09:14:33 (last modified)  
+// Timestamp: 2016.01.11-11:22:38 (last modified)
 // Author(s): Bumblehead (www.bumblehead.com)  
 // Requires: xhrgo.js
-
-
+//
 // https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS?redirectlocale=en-US&redirectslug=HTTP_access_control
 // http://msdn.microsoft.com/en-us/library/ie/cc288060%28v=vs.85%29.aspx
 
@@ -16,25 +15,22 @@ var xdrgo = module.exports = (function (xdrgo) {
   xdrgo.quickJSON = function (type, uri, data, token, fn, resWaitTime) {
     var xhr = xdrgo.newRequest(), 
         timeout = resWaitTime || 30000, 
-        fullUri = uri.valueOf(),
         finData, timer,
         doneFn = function (err, res) { if (typeof fn === 'function') fn(err, res); };
 
     if ("withCredentials" in xhr) {
-      xhr.open(type, fullUri, true);
+      xhr.open(type, uri, true);
     } else if (typeof XDomainRequest === "function") {
       xhr = new XDomainRequest();
-      xhr.open(type, fullUri);
+      xhr.open(type, uri);
     } else {
       // Otherwise, CORS is not supported by the browser.
       return fn(new Error('[!!!] CORS is not supported'));
     }
 
-
-    // -------------------------------------
-    // send cookie data
-    xhr.withCredentials = true;
-    // -------------------------------------
+    if (token) {
+      xhr.withCredentials = true;
+    }
 
     xhr.setRequestHeader("Accept", "application/json, text/javascript");
     if (type.match(/PUT|POST/) && typeof data === 'object' && data) {
@@ -46,10 +42,11 @@ var xdrgo = module.exports = (function (xdrgo) {
     }
 
     xhr.onreadystatechange = xdrgo.constructReadyState(xhr, function (xhr) {
-      var err, res = 'success';
+      var res = 'success';
 
       clearTimeout(timer);
-
+      if (xhr.status === 500) return doneFn('Internal Server Error');
+      
       if (xhr.responseText) {
         try {
           res = JSON.parse(xhr.responseText);
@@ -57,14 +54,8 @@ var xdrgo = module.exports = (function (xdrgo) {
           res = xhr.responseText;
         }
       }
-
-      if (xhr.status === 200) {
-        doneFn(null, res);
-      } else {
-        doneFn(xhr, res);
-      }
-
-      doneFn((xhr.status === 200 ? null : xhr), res);
+      
+      doneFn((xhrgo.is2xxRe.test(xhr.status)) ? null : xhr, res); 
     });
 
     xhr.send(finData);

@@ -1,18 +1,18 @@
 // Filename: xdrgo.js  
-// Timestamp: 2016.01.11-11:51:10 (last modified)
+// Timestamp: 2017.05.06-00:46:03 (last modified)
 // Author(s): Bumblehead (www.bumblehead.com)  
 // Requires: xhrgo.js
 //
 // https://developer.mozilla.org/en-US/docs/HTTP/Access_control_CORS?redirectlocale=en-US&redirectslug=HTTP_access_control
 // http://msdn.microsoft.com/en-us/library/ie/cc288060%28v=vs.85%29.aspx
 
-var xhrgo = require('xhrgo');
+const xhrgo = require('xhrgo');
 
-var xdrgo = module.exports = (function (xdrgo) {
+const xdrgo = module.exports = (xdrgo => {
   
   xdrgo = Object.create(xhrgo);
 
-  xdrgo.newRequest = function () {
+  xdrgo.newRequest = () => {
     var xdr = xhrgo.newRequest();
     
     if ("withCredentials" in xdr) {
@@ -26,11 +26,11 @@ var xdrgo = module.exports = (function (xdrgo) {
     return xdr;
   };
 
-  xdrgo.quickJSON = function (type, uri, data, token, fn, resWaitTime) {
+  xdrgo.quickJSON = (type, uri, data, token, fn, resWaitTime) => {
     var xhr = xdrgo.newRequest(), 
         timeout = resWaitTime || 30000, 
         finData, timer,
-        doneFn = function (err, res) { if (typeof fn === 'function') fn(err, res); };
+        doneFn = (err, res) => (typeof fn === 'function' && fn(err, res));
 
     if (xhr) {
       xhr.open(type, uri, true);
@@ -51,7 +51,7 @@ var xdrgo = module.exports = (function (xdrgo) {
       xhr.setRequestHeader("Authorization", token);
     }
 
-    xhr.onreadystatechange = xdrgo.constructReadyState(xhr, function (xhr) {
+    xhr.onreadystatechange = xdrgo.constructReadyState(xhr, xhr => {
       var res = 'success';
 
       clearTimeout(timer);
@@ -69,10 +69,10 @@ var xdrgo = module.exports = (function (xdrgo) {
     });
 
     xhr.send(finData);
-    timer = setTimeout(function () { xhr.abort(); doneFn(xhr); }, timeout);
+    timer = setTimeout(() => { xhr.abort(); doneFn(xhr); }, timeout);
   };  
 
   return xdrgo;
 
-}());
+})();
 

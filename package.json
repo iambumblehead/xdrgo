@@ -1,6 +1,6 @@
 {
   "name": "xdrgo",
-  "version": "0.0.04",
+  "version": "0.0.05",
   "main" : "xdrgo",
   "license" : "MIT",
   "repository": {
@@ -17,7 +17,7 @@
     "json"
   ],
   "dependencies": {
-     "xhrgo" : ">=0.0.1"
+    "xhrgo" : "^0.1.2"
   },
   "devDependencies": {
     "compareobj": ">=0.0.3",
